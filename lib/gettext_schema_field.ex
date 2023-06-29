@@ -21,7 +21,7 @@ defmodule GettextSchemaField do
   defp sanitized_module_name(module_name), do: module_name
 
   defp schema_fields_domain do
-    Application.get_env(Mix.Project.config()[:app], :gettext_schema_file_name) || "schema"
+    "schema"
   end
 
   # If the msgstr and the msgid are the same, assume that the translation is missing
