@@ -31,9 +31,9 @@ defmodule Mix.Tasks.Gettext.SchemaFields do
     Mix.Task.run("compile")
     Mix.Task.run("compile.elixir")
   end
-  
+
   defp extract_fields_from_module(module, file_path) do
-    case Keyword.fetch(module.__info__(:functions), :__schema__) do
+    case Keyword.fetch(module.module_info(:exports), :__schema__) do
       {:ok, _} ->
         add_fields_to_pot_file(module, file_path)
       _ ->
@@ -45,7 +45,7 @@ defmodule Mix.Tasks.Gettext.SchemaFields do
     File.write!(file_path, "# #{sanitized_module_name("#{module}")}\n", [:append])
 
     Enum.each(module.__schema__(:fields), &write_field_to_pot_file(&1, module, file_path))
-    
+
     File.write!(file_path, "\n", [:append])
   end
 
